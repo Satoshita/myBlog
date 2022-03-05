@@ -1,0 +1,22 @@
+body {
+  background: coral;
+  display: block;
+  text-align: center;
+  padding:50px;
+}
+
+h1 {
+  margin-top: -400px;
+  color: blue;
+  letter-spacing: 2px;
+}
+
+.moji {
+  margin-top: -25px;
+}
+
+p {
+  color: #fff;
+  font-size: 12px;
+  padding-top: 250px;
+}

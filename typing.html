@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text.css" href="css/styles_5.css">
+  <audio src="./sound/Zihou01-4.mp3" id="startaudio"></audio>
+  <audio src ="./sound/クイズ不正解2.mp3" id="missaudio"></audio>
+    <audio src ="./sound/カーソル移動7.mp3" id="correctaudio"></audio>
+  <title>Typing Game</title>
+  
+  <script>
+    var wordlist = ["giomitesezaruhayunakinari","sugitaruhaoyobazarugagotoshi","sessatakuma","ennositanochikaramochi","abuhachitorazu","kaiinunitewokamareru","kyuushiniisshouwoeru","atohanotonareyamatonare","satukinokoinofukinagashi","koukaisakiniatazu","sarumokikaraochiru","siranugahotoke","suimoamaimokamiwakete","sannninnyorebamonnjyunochie","shimennsoka","chirimotumorebayamatonaru","turuhasennnennkamehamannnenn","shiranugahotoke","tokihakanenari","nagaimononihamakarero","nidoarukotohasandoaru","sodefuriaumotashounoenn","nekonotemokaritai","norenniudeosi","hayaokihasanmonnotoku","hinonaitokoronikemurihatatanu","fukusuibonnikaerazu","benkeinonakidokoro","hotokenokaomosando","seitennnohekireki","mikaradetasabi","sukikosomononojyouzunare","menihame,hanihaha","motonosayaniosamaru","yakeisinimizu","yudantaiteki","yowarimenitatarime","senndouookushitefuneyamaninoboru","ryouyakuhakuchininigashi","ruihatomowoyobu","reiniyottereinogotosi","jinnjiwotukushitetennmeiwomatu","tabihamichidureyohanasake"];
+    var wordlistJapanese = ["義を見てせざるは勇無きなり","過ぎたるは猶及ばざるが如し","切磋琢磨","縁の下の力持ち","虻蜂取らず","飼い犬に手を噛まれる","九死に一生を得る","後は野となれ山となれ","五月の鯉の吹き流し","後悔先に立たず","猿も木から落ちる","知らぬが仏","酸いも甘いも噛み分けて","三人寄れば文殊の知恵","四面楚歌","塵も積もれば山となる","鶴は千年亀は万年","知らぬが仏","時は金なり","長い物には巻かれろ","二度あることは三度ある","袖振り合うも他生の縁","猫の手も借りたい","暖簾に腕押し","早起きは三文の徳","火のないところに煙は立たぬ","覆水盆に反らず","弁慶の泣き所","仏の顔も三度","青天の霹靂","身から出た錆","好きこそ物の上手なれ","目には目、歯には歯","元の鞘に納まる","焼け石に水","油断大敵","弱り目に祟り目","船頭多くして船山に上る","良薬は口に苦し","類は友を呼ぶ","例によって例の如し","人事を尽くして天命を待つ","旅は道連れ世は情け"];
+         var time_limit = 90;
+         var readytime = 3;
+         var score;
+         var correct;
+         var mistake;
+         var char_num = 0;
+         var word_char;
+         var random;
+
+         function ready(){
+             readytime = 3;
+             scoredis.innerHTML="";
+             start_button.style.visibility ="hidden";
+             var readytimer = setInterval(function(){
+                 count.innerHTML=readytime;
+                 count.style.fontSize = '35px';
+                 count.style.color = "red";
+                 readytime--;
+                 document.getElementById('startaudio').play();
+                 if(readytime < 0){
+                    clearInterval(readytimer);
+                     gameStart();
+                    }
+             },1000);
+         }
+         function gameStart(){
+             score = 0.0;
+             mistake = 0;
+             correct = 0;
+             wordDisplay();
+             var time_remaining = time_limit;
+             var gametimer = setInterval(function(){
+                count.innerHTML="残り時間："+time_remaining;
+                 time_remaining--;
+                 if(time_remaining <= 0){
+                 clearInterval(gametimer);
+                     finish();
+             }
+             },1000);
+         }
+         function wordDisplay(){
+             random = Math.floor( Math.random() * wordlist.length );
+             word.innerHTML=wordlist[random];
+             document.body.style.fontSize = '25px';
+             word.style.color = 'blue';
+             japanese.innerHTML=wordlistJapanese[random];
+             charInsort();
+         }
+         function charInsort(){
+             word_char = wordlist[random].charAt(char_num);
+         }
+         function finish(){
+             score = Math.floor(Math.pow(correct,2) * Math.pow((correct/(correct+mistake)),5));
+             scoredis.innerHTML="スコア:"+score+"点"+"<hr>正タイプ数:"+correct+"<br>ミスタイプ数:"+mistake+"<br>正答率"+(correct/(correct+mistake)*100).toFixed(1)+"%";
+             count.innerHTML="";
+             word.innerHTML="";
+             japanese.innerHTML="";
+             start_button.style.visibility ="visible";
+             word_char=0;
+             random = 0;
+             char_num = 0;
+         }
+    document.onkeydown = function(e) {
+        if(e.keyCode == 189){
+           keyStr = "-";
+           }else if(e.keyCode == 188){
+                    keyStr = ","
+                    }else{
+     var keyStr = String.fromCharCode(e.keyCode);
+        keyStr = keyStr.toLowerCase();
+           }
+        if(keyStr == word_char){
+            document.getElementById('missaudio').pause();
+            document.getElementById('missaudio').currentTime = 0;
+            document.getElementById('correctaudio').pause();
+            document.getElementById('correctaudio').currentTime = 0;
+            document.getElementById('correctaudio').play();
+            word.innerHTML="<span style='color: red;'>"+wordlist[random].substr(0,char_num+1)+"</span>"+wordlist[random].substr(char_num+1,wordlist[random].length);
+            char_num++;
+            correct++;
+            charInsort();
+           }else{
+               document.getElementById('missaudio').pause();
+               document.getElementById('missaudio').currentTime = 0;
+               document.getElementById('correctaudio').pause();
+               document.getElementById('correctaudio').currentTime = 0;
+               mistake++;
+               document.getElementById('missaudio').play();
+           }
+        if(char_num == wordlist[random].length){
+            char_num=0;
+            wordDisplay();
+           }
+    };
+    </script>
+</head>
+<body style="background: rgb(241, 217, 81);">
+  <h2 style="text-align: center; font-size: 40px; background: limegreen; padding: 10px; border: 5px solid gray; letter-spacing:5px;">Trying&#x1F639;Game</h2>
+
+  <div class="wrap" style="text-align: center;">
+    <input type="button" id="start_button" value="ゲームスタート！" onclick="ready()" style="font-size: 20px; background: coral; color: #fff; font-weight: bold;">
+    <div id="count"></div>
+        <h1><div id="japanese"></div></h1>
+        <h2><div id="word"></div></h2>
+        <div id="scoredis"></div>
+    </div>
+    <a href="./index.html">Homeへ戻る</a>
+</body>
+</html>

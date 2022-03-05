@@ -1,0 +1,61 @@
+body {
+  background: chocolate;
+}
+
+h1 {
+  text-align: center;
+  margin: 50px auto;
+  letter-spacing: 5px;
+  margin-bottom: -43px;
+  border: 5px solid;
+  padding-bottom: 8px;
+  border-radius: 8px;
+  width: 306px;
+  color: rgb(136, 45, 12)
+}
+
+p {
+  text-align: center;
+  letter-spacing: 5px;
+  margin-bottom: -35px;
+}
+
+#panel {
+  width: 310px;
+  height: 330px;
+  overflow: hidden;
+  margin: 50px auto;
+  background: lightskyblue;
+  border-radius: 10px;
+}
+
+.card {
+  width: 60px;
+  height: 80px;
+  line-height: 80px;
+  border: 1px solid silver;
+  border-radius: 10px;
+  text-align: center;
+  font-size: 26px;
+  font-weight: bold;
+  box-shadow: gray 2px 2px;
+  background: white;
+  float: left;
+  cursor: pointer;
+}
+/* 裏の状態 */
+.back {
+  background-image: url('img/back.png');
+  background-size: 60px 80px;
+}
+/* 終了時 */
+.finish {
+  opacity: 0;
+  cursor: default;
+}
+/* 経過秒数 */
+#result {
+  font-size: 1.2em;
+  font-weight: bold;
+  text-align: center;
+}

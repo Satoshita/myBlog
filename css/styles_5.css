@@ -1,0 +1,9 @@
+body {
+  background: yellow;
+}
+
+.wrap {
+  display: block;
+  text-align: center;
+  border: 3px solid #357;
+}
