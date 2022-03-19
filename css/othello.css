@@ -1,3 +1,9 @@
+.all {
+  width: 588px;
+  height: 584px;
+  background: rgb(95, 25, 25);
+}
+
 #field td {
   border: 1px solid #000;
   width: 50px;
