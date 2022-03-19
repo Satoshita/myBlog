@@ -2,7 +2,7 @@
 {
 let turn = 0 // ターン 1:黒、-1:白
 let ban_ar = new Array(10)
-for (var x = 0; x < ban_ar.length; x++){
+for (let x = 0; x < ban_ar.length; x++){
 ban_ar[x] = new Array(10)
 }
 
@@ -16,8 +16,8 @@ ban_new()
 ban_init()
 
 // クリックした時に実行されるイベント
-for (var x = 0; x < 10; x++) {
-  for (var y = 0; y < 10; y++) {
+for (let x = 0; x < 10; x++) {
+  for (let y = 0; y < 10; y++) {
     let select_cell = ban.rows[x].cells[y];
     select_cell.onclick = function() {
       if (ban_ar[this.parentNode.rowIndex][this.cellIndex] == 0) {
@@ -35,7 +35,7 @@ function ban_new() {
   for (let x = 0; x < 10; x++) {
     let tr = document.createElement("tr")
       ban.appendChild(tr)
-      for (var y = 0; y < 10; y++) {
+      for (let y = 0; y < 10; y++) {
         let td = document.createElement("td")
           tr.appendChild(td)
       }
@@ -44,8 +44,8 @@ function ban_new() {
   
   // 盤面を初期化する処理
   function ban_init () {
-    for (var x = 0; x < 10; x++) {
-      for (var y = 0; y < 10; y++) {
+    for (let x = 0; x < 10; x++) {
+      for (let y = 0; y < 10; y++) {
         ban_ar[x][y] = 0
       }
     }
@@ -64,8 +64,8 @@ function ban_new() {
   // 盤面状況(配列)を実際の盤面へ反映させる処理
   function ban_set () {
     let stone = ""
-    for (var x = 0; x < 10; x++) {
-      for (var y = 0; y < 10; y++) {
+    for (let x = 0; x < 10; x++) {
+      for (let y = 0; y < 10; y++) {
         switch( ban_ar[x][y] ) {
           case 0:
             stone = ""
@@ -110,16 +110,16 @@ function cheng_turn () {
   // 左端からすべてのマスの確認を行う
   let white_cnt = 0
   let black_cnt = 0
-  for (var x = 0; x < 10; x++) {
-    for (var y = 0; y < 10; y++) {
+  for (let x = 0; x < 10; x++) {
+    for (let y = 0; y < 10; y++) {
   // 空白マスのみおけるのでチェック
   // それ以外は石の数を加算
     switch( ban_ar[x][y] ) {
       case 0:
       check_reverse_cnt = check_reverse_cnt + check_reverse(x,y)
   // バックアップから元に戻す
-      for (var i = 0; i < 10; i++) {
-        for (var ii = 0; ii < 10; ii++) {
+      for (let i = 0; i < 10; i++) {
+        for (let ii = 0; ii < 10; ii++) {
           ban_ar[i][ii] = ban_bak[i][ii]
         }
       }
@@ -190,11 +190,11 @@ function cheng_turn () {
   function line_reverse (row_index,cell_indx,add_x,add_y) {
   // 最初に今の盤状況を退避する
     let ban_bak = new Array(10)
-    for (var i = 0; i < ban_ar.length; i++){
+    for (let i = 0; i < ban_ar.length; i++){
       ban_bak[i] = new Array(10)
     }
-    for (var x = 0; x < 10; x++) {
-      for (var y = 0; y < 10; y++) {
+    for (let x = 0; x < 10; x++) {
+      for (let y = 0; y < 10; y++) {
         ban_bak[x][y] = ban_ar[x][y]
       }
     }
